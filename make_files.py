@@ -9,6 +9,12 @@ def make_files(
 ):
     # Get input and output files
     input_files, output_files = get_files(**dir_kwargs)
+    if args.nfiles > 0:
+        input_files = input_files[(args.resume - 1) : (args.resume - 1 + args.nfiles)]
+        output_files = output_files[(args.resume - 1) : (args.resume - 1 + args.nfiles)]
+    else:
+        input_files = input_files[(args.resume - 1) :]
+        output_files = output_files[(args.resume - 1) :]
     print(f"Found {len(input_files)} input files")
     # Make pool of processes
     pool = mp.Pool(processes=args.cpu)
