@@ -17,9 +17,9 @@ def make_files(
         output_files = output_files[(args.resume - 1) :]
     print(f"Found {len(input_files)} input files")
     # Make pool of processes
-    pool = mp.Pool(processes=args.cpu)
     # Make files
     for input_list, output_list in mpwise_loop(input_files, output_files, args.cpu):
+        pool = mp.Pool(processes=args.cpu)
         print(f"Making {len(input_list)} files")
         for input_file, output_file in zip(input_list, output_list):
             pool.apply_async(
