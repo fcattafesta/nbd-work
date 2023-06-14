@@ -9,4 +9,8 @@ parser.add_argument(
 parser.add_argument("--range", type=int, default=None, help="Number of events per file")
 parser.add_argument("--device", type=str, default="cuda:0", help="Device to use")
 parser.add_argument("--cpu", type=int, default=1, help="How many CPUs to use")
+parser.add_argument("--filter_ak8", action="store_true", help="Filter AK8 jets")
+parser.add_argument(
+    "--oversampling_factor", type=int, default=1, help="Oversampling factor"
+)
 args = parser.parse_args()
