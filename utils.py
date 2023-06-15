@@ -8,7 +8,7 @@ def scp(source_path, destination_path, private_key_path="~/.ssh/id_rsa"):
     scp_command = f"scp -i {private_key_path} {source_path} cattafe@cmsanalysis:{destination_path}"
     rm_command = f"rm {source_path}"
     subprocess.call(scp_command, shell=True)
-    # subprocess.call(rm_command, shell=True)
+    subprocess.call(rm_command, shell=True)
 
 
 def nanomaker_wrapped(
