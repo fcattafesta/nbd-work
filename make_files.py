@@ -5,7 +5,7 @@ from utils import nanomaker_wrapped, get_files, mpwise_loop
 
 
 def make_files(
-    obj_list, args, custom_path="/scratchnvme/cattafe/flashsim_test", **dir_kwargs
+    obj_list, args, custom_path="/scratchnvme/cattafe/FlashSim", **dir_kwargs
 ):
     # Get input and output files
     input_files, output_files = get_files(**dir_kwargs)
