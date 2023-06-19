@@ -1,7 +1,7 @@
 import os
 import multiprocessing as mp
 import psutil
-from utils import nanomaker_wrapped, get_files, mpwise_loop
+from utils import nanomaker_wrapped, get_files, mpwise_loop, scp
 
 
 def log_exception(exception, task):
@@ -51,6 +51,18 @@ def make_files(
             except Exception as e:
                 log_exception(e, i)
         pool.join()
+
+        print("Copying files to FlashSim directory")
+        for input_file, output_file in zip(input_list, output_list):
+            try:
+                scp(
+                    output_file,
+                    output_file.replace(custom_path, dir_kwargs["flash_dir"]),
+                )
+            except:
+                raise Exception(f"Failed to copy {output_file}")
+        print("Done!")
+
         # Memory usage in GB
         print(
             f"Memory usage: {(psutil.Process(os.getpid()).memory_info().rss / 1024 ** 2):.0f} MB"

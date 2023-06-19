@@ -31,8 +31,8 @@ def nanomaker_wrapped(
         filter_ak8,
         oversampling_factor,
     )
-    if device != "cpu":
-        scp(output_file, output_file.replace(old_dir, new_dir))
+    # if device != "cpu":
+    #     scp(output_file, output_file.replace(old_dir, new_dir))
 
 
 def get_files(mc_dir, prod_camp, sample, nano, flash_dir):
