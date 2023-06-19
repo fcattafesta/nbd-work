@@ -4,8 +4,8 @@ import psutil
 from utils import nanomaker_wrapped, get_files, mpwise_loop, scp
 
 
-def log_exception(exception, task):
-    print(f"Task {task} raised exception: {exception}\n")
+def log_exception(exception, task, output_file):
+    print(f"Task raised exception: {exception} in {output_file}\n")
 
 
 def make_files(
@@ -42,13 +42,13 @@ def make_files(
                     custom_path,
                 ),
             )
-            results.append(result)
+            results.append((result, output_file))
 
-        for i, result in enumerate(results):
+        for result, file in zip(results, output_files):
             try:
                 result.get(timeout=3600)  # adjust timeout as needed
             except Exception as e:
-                log_exception(e, i)
+                log_exception(e, file)
 
         print("Copying files to FlashSim directory")
         for input_file, output_file in zip(input_list, output_list):
