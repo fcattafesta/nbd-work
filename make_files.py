@@ -44,7 +44,7 @@ def make_files(
             )
             results.append((result, output_file))
 
-        for result, file in zip(results, output_files):
+        for result, file in results:
             try:
                 result.get(timeout=3600)  # adjust timeout as needed
             except Exception as e:
