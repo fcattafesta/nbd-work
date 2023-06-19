@@ -23,8 +23,8 @@ def make_files(
     # Make pool of processes
     # Make files
 
+    pool = mp.get_context("spawn").Pool(processes=args.cpu)
     for input_list, output_list in mpwise_loop(input_files, output_files, args.cpu):
-        pool = mp.Pool(processes=args.cpu)
         print(f"Making {len(input_list)} files")
         results = []
         for input_file, output_file in zip(input_list, output_list):
