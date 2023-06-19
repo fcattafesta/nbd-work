@@ -43,14 +43,12 @@ def make_files(
                 ),
             )
             results.append(result)
-        pool.close()
 
         for i, result in enumerate(results):
             try:
                 result.get(timeout=3600)  # adjust timeout as needed
             except Exception as e:
                 log_exception(e, i)
-        pool.join()
 
         print("Copying files to FlashSim directory")
         for input_file, output_file in zip(input_list, output_list):
@@ -68,3 +66,5 @@ def make_files(
             f"Memory usage: {(psutil.Process(os.getpid()).memory_info().rss / 1024 ** 2):.0f} MB"
         )
         print("Done!")
+    pool.close()
+    pool.join()
