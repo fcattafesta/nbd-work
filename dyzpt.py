@@ -2,6 +2,7 @@ import ROOT
 from args import args
 from make_files import make_files
 
+# DONE
 # dir_kwargs = {
 #     "mc_dir": "/gpfs/ddn/srm/cms//store/mc",
 #     "prod_camp": "RunIISummer20UL18NanoAODv9",
@@ -48,4 +49,5 @@ from make_files import make_files
 obj_list = ["Electron", "Electron_fromJets", "Muon", "Jet"]
 
 
-make_files(obj_list, args, **dir_kwargs)
+if __name__ == "__main__":
+    make_files(obj_list, args, **dir_kwargs)
