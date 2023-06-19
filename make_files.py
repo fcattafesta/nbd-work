@@ -4,6 +4,10 @@ import psutil
 from utils import nanomaker_wrapped, get_files, mpwise_loop
 
 
+def log_exception(exception, task):
+    print(f"Task {task} raised exception: {exception}\n")
+
+
 def make_files(
     obj_list, args, custom_path="/scratchnvme/cattafe/FlashSim", **dir_kwargs
 ):
@@ -18,11 +22,13 @@ def make_files(
     print(f"Found {len(input_files)} input files")
     # Make pool of processes
     # Make files
+
     for input_list, output_list in mpwise_loop(input_files, output_files, args.cpu):
-        pool = mp.get_context("spawn").Pool(processes=args.cpu)
+        pool = mp.Pool(processes=args.cpu)
         print(f"Making {len(input_list)} files")
+        results = []
         for input_file, output_file in zip(input_list, output_list):
-            pool.apply_async(
+            result = pool.apply_async(
                 nanomaker_wrapped,
                 args=(
                     input_file,
@@ -36,7 +42,14 @@ def make_files(
                     custom_path,
                 ),
             )
+            results.append(result)
         pool.close()
+
+        for i, result in enumerate(results):
+            try:
+                result.get(timeout=3600)  # adjust timeout as needed
+            except Exception as e:
+                log_exception(e, i)
         pool.join()
         # Memory usage in GB
         print(
