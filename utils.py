@@ -5,8 +5,12 @@ from nbd.builder.nanomaker import nanomaker
 
 
 def scp(source_path, destination_path, private_key_path="~/.ssh/id_rsa"):
+    mkdir_command = (
+        f"ssh -i {private_key_path} cattafe@cmsanalysis mkdir -p {destination_path}"
+    )
     scp_command = f"scp -i {private_key_path} {source_path} cattafe@cmsanalysis:{destination_path}"
     rm_command = f"rm {source_path}"
+    subprocess.call(mkdir_command, shell=True)
     subprocess.call(scp_command, shell=True)
     subprocess.call(rm_command, shell=True)
 
