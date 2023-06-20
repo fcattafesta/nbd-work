@@ -1,5 +1,5 @@
 import os
-import sys
+import psutil
 import time
 import ROOT
 from nbd.builder.nanomaker import nanomaker
@@ -27,6 +27,8 @@ def nanomaker_wrapped(input_file):
     scp(
         output_file, output_file.replace(args.new_dir, "/scratchnvme/cattafe/FlashSim/")
     )
+    process = psutil.Process(os.getpid())
+    print(f"Memory usage: {process.memory_info().rss / 1024 / 1024:.0f} MB")
 
 
 if __name__ == "__main__":
