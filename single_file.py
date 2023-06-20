@@ -1,6 +1,7 @@
 import os
 import sys
 import time
+import ROOT
 from nbd.builder.nanomaker import nanomaker
 from utils import scp
 from args import args
@@ -29,4 +30,4 @@ def nanomaker_wrapped(input_file):
 
 
 if __name__ == "__main__":
-    nanomaker_wrapped(sys.argv[1])
+    nanomaker_wrapped(args.input_file)
