@@ -4,7 +4,7 @@ import psutil
 from utils import nanomaker_wrapped, get_files, mpwise_loop, scp
 
 
-def log_exception(exception, task, output_file):
+def log_exception(exception, output_file):
     print(f"Task raised exception: {exception} in {output_file}\n")
 
 
