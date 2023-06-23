@@ -24,9 +24,10 @@ def nanomaker_wrapped(input_file):
     )
     end = time.time()
     print(f"Time elapsed: {((end - start) / 60.0):.0f} min")
-    scp(
-        output_file, output_file.replace(args.new_dir, "/scratchnvme/cattafe/FlashSim/")
+    destination = os.path.dirname(output_file).replace(
+        args.new_dir, "/scratchnvme/cattafe/FlashSim/"
     )
+    scp(output_file, destination)
     process = psutil.Process(os.getpid())
     print(f"Memory usage: {process.memory_info().rss / 1024 / 1024:.0f} MB")
 
